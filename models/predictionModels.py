@@ -45,3 +45,4 @@ class InputData(BaseModel):
                 "cholesterol": 100
             }
         }
+
