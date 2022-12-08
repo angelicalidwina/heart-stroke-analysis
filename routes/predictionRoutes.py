@@ -121,7 +121,7 @@ def delete_data(db: Session = Depends(get_db), user : str = Depends(authenticate
     
     prediksi.delete()
     db.commit()
-    return {"Message" : "Data berhasil dihapus"}
+    return {"Message" : "Data deleted successfully"}
     
 
 @prediction_router.put("/update")
@@ -190,7 +190,7 @@ def update_data(request:InputData, db: Session = Depends(get_db), user: str = De
                             'bmi':user_bmi, 'kategori_bmi':user_kategori_bmi, 
                             'glucose': user_glucose, 'cholesterol':user_cholesterol, 'chance':user_chance})
     db.commit()
-    return {"bmi": user_bmi, "kategori_bmi": user_kategori_bmi, "chance": user_chance}
+    return {"Message": "Data successfully updated", "bmi": user_bmi, "kategori_bmi": user_kategori_bmi, "chance": user_chance}
 
 @prediction_router.get('/analysis')
 def count_chance(db: Session =  Depends(get_db)):
