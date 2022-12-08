@@ -39,17 +39,44 @@ def input_data(request:InputData, db: Session = Depends(get_db), user: str = Dep
         user_kategori_bmi = "Morbidly Obese"
     user_glucose = request.glucose
     user_cholesterol = request.cholesterol
-    if user_glucose >= 150 and user_cholesterol >= 200:
-        user_chance = "High"
-    elif user_glucose < 150 and user_cholesterol >= 200:
-        user_chance = "High"
-    elif user_glucose >= 150 and user_cholesterol < 200:
-        user_chance = "High"
-    elif user_glucose < 150 and user_cholesterol < 200:
-        if user_kategori_bmi == 'Overweight' or user_kategori_bmi == 'Obese' or user_kategori_bmi == 'Morbidly Obese':
-            user_chance = "High"
+    if user_age >= 35 :
+        if user_bmi == 'Overweight' or user_bmi == 'Obese' or user_bmi == 'Morbidly Obese':
+            if user_glucose >= 150 and user_cholesterol >= 200:
+                user_chance = 'High'
+            elif user_glucose >= 150 and user_cholesterol < 200:
+                user_chance = 'High'
+            elif user_glucose < 150 and user_cholesterol >=200:
+                user_chance = 'High'
+            elif user_glucose < 150 and user_cholesterol < 200:
+                user_chance = 'Possible'
         else:
-            user_chance = 'Low'
+            if user_glucose >= 150 and user_cholesterol >= 200:
+                user_chance = 'High'
+            elif user_glucose >= 150 and user_cholesterol < 200:
+                user_chance = 'Possible'
+            elif user_glucose < 150 and user_cholesterol >= 200:
+                user_chance = 'Possible'
+            elif user_glucose < 150 and user_cholesterol < 200:
+                user_chance = 'Low'
+    else:
+        if user_bmi == 'Overweight' or user_bmi == 'Obese' or user_bmi == 'Morbidly Obese':
+            if user_glucose >= 150 and user_cholesterol >= 200:
+                user_chance = 'High'
+            elif user_glucose >= 150 and user_cholesterol < 200:
+                user_chance = 'Possible'
+            elif user_glucose < 150 and user_cholesterol >=200:
+                user_chance = 'Possible'
+            elif user_glucose < 150 and user_cholesterol < 200:
+                user_chance = 'Low'
+        else:
+            if user_glucose >= 150 and user_cholesterol >= 200:
+                user_chance = 'Possible'
+            elif user_glucose >= 150 and user_cholesterol < 200:
+                user_chance = 'Low'
+            elif user_glucose < 150 and user_cholesterol >= 200:
+                user_chance = 'Low'
+            elif user_glucose < 150 and user_cholesterol < 200:
+                user_chance = 'Low'
 
     new_prediction = Prediction(email = user, age = user_age, height=user_height, 
                                         weight=user_weight, bmi=user_bmi, kategori_bmi = user_kategori_bmi,
@@ -120,17 +147,44 @@ def update_data(request:InputData, db: Session = Depends(get_db), user: str = De
         user_kategori_bmi = "Morbidly Obese"
     user_glucose = request.glucose
     user_cholesterol = request.cholesterol
-    if user_glucose >= 150 and user_cholesterol >= 200:
-        user_chance = "High"
-    elif user_glucose < 150 and user_cholesterol >= 200:
-        user_chance = "High"
-    elif user_glucose >= 150 and user_cholesterol < 200:
-        user_chance = "High"
-    elif user_glucose < 150 and user_cholesterol < 200:
-        if user_kategori_bmi == 'Overweight' or user_kategori_bmi == 'Obese' or user_kategori_bmi == 'Morbidly Obese':
-            user_chance = "High"
+    if user_age >= 35 :
+        if user_bmi == 'Overweight' or user_bmi == 'Obese' or user_bmi == 'Morbidly Obese':
+            if user_glucose >= 150 and user_cholesterol >= 200:
+                user_chance = 'High'
+            elif user_glucose >= 150 and user_cholesterol < 200:
+                user_chance = 'High'
+            elif user_glucose < 150 and user_cholesterol >=200:
+                user_chance = 'High'
+            elif user_glucose < 150 and user_cholesterol < 200:
+                user_chance = 'Possible'
         else:
-            user_chance = 'Low'
+            if user_glucose >= 150 and user_cholesterol >= 200:
+                user_chance = 'High'
+            elif user_glucose >= 150 and user_cholesterol < 200:
+                user_chance = 'Possible'
+            elif user_glucose < 150 and user_cholesterol >= 200:
+                user_chance = 'Possible'
+            elif user_glucose < 150 and user_cholesterol < 200:
+                user_chance = 'Low'
+    else:
+        if user_bmi == 'Overweight' or user_bmi == 'Obese' or user_bmi == 'Morbidly Obese':
+            if user_glucose >= 150 and user_cholesterol >= 200:
+                user_chance = 'High'
+            elif user_glucose >= 150 and user_cholesterol < 200:
+                user_chance = 'Possible'
+            elif user_glucose < 150 and user_cholesterol >=200:
+                user_chance = 'Possible'
+            elif user_glucose < 150 and user_cholesterol < 200:
+                user_chance = 'Low'
+        else:
+            if user_glucose >= 150 and user_cholesterol >= 200:
+                user_chance = 'Possible'
+            elif user_glucose >= 150 and user_cholesterol < 200:
+                user_chance = 'Low'
+            elif user_glucose < 150 and user_cholesterol >= 200:
+                user_chance = 'Low'
+            elif user_glucose < 150 and user_cholesterol < 200:
+                user_chance = 'Low'
 
     update_prediksi.update({'age':user_age, 'height':user_height, 'weight': user_weight,
                             'bmi':user_bmi, 'kategori_bmi':user_kategori_bmi, 
