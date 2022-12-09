@@ -108,9 +108,9 @@ def get_recommendation(db: Session = Depends(get_db), user : str = Depends(authe
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Data not found")
     
     if prediksi == 'Low':
-        return{"Message" : "Secara keseluruhan, kesehatanmu sudah baik, tapi jangan lupa berolahraga!!"}
+        return{"Message" : "Overall, your health is good, but don't forget to exercise!!"}
     if prediksi == 'High':
-        return{"Message": "Kamu berpeluang besar terkena penyakit jantung. Kamu perlu memperhatikan pola makan dan berolahraga!"}
+        return{"Message": "You have a high chance of having a heart attack. You need to pay attention to your diet and exercise!"}
 
 @prediction_router.delete('/delete')
 def delete_data(db: Session = Depends(get_db), user : str = Depends(authenticate)) -> dict:
@@ -198,8 +198,12 @@ def count_chance(db: Session =  Depends(get_db)):
     count_low = count_chance_low.count()
     count_chance_high = db.query(Prediction).filter_by(chance = 'High')
     count_high = count_chance_high.count()
+    count_chance_possible = db.query(Prediction).filter_by(chance = 'Possible')
+    count_possible = count_chance_possible.count()
+
     return {
-        'jumlah orang dengan tingkat serangan jantung rendah' : count_low,
-        'jumlah orang dengan tingkat serangan jantung tinggi' : count_high
+        'Number of people with low heart attack rates' : count_low,
+        'Number of people with possible heart attack rates':count_possible,
+        'Number of people with high heart attack rates' : count_high
     }
 
