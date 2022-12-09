@@ -78,7 +78,7 @@ def input_data(request:InputData, db: Session = Depends(get_db), user: str = Dep
             elif user_glucose < 150 and user_cholesterol < 200:
                 user_chance = 'Low'
 
-    new_prediction = Prediction(email = user, age = user_age, height=user_height, 
+    new_prediction = Prediction(email = user, age = user_age, height_meter=user_height, 
                                         weight=user_weight, bmi=user_bmi, kategori_bmi = user_kategori_bmi,
                                         glucose = user_glucose, cholesterol=user_cholesterol, chance=user_chance)
     db.add(new_prediction)
@@ -205,7 +205,7 @@ def update_data(request:InputData, db: Session = Depends(get_db), user: str = De
             elif user_glucose < 150 and user_cholesterol < 200:
                 user_chance = 'Low'
 
-    update_prediksi.update({'age':user_age, 'height':user_height, 'weight': user_weight,
+    update_prediksi.update({'age':user_age, 'height_meter':user_height, 'weight': user_weight,
                             'bmi':user_bmi, 'kategori_bmi':user_kategori_bmi, 
                             'glucose': user_glucose, 'cholesterol':user_cholesterol, 'chance':user_chance})
     db.commit()

@@ -8,7 +8,7 @@ class Prediction(Base):
     id = Column(Integer, primary_key=True)
     email = Column(String, ForeignKey("users.email"), unique=True, index=True)
     age = Column(Integer)
-    height = Column(Float)
+    height_meter = Column(Float)
     weight = Column(Integer)
     bmi = Column(Float, default="")
     kategori_bmi = Column(String, default="")
