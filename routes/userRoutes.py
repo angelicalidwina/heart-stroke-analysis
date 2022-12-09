@@ -27,7 +27,7 @@ def sign_user_up(request: SignUp, db: Session = Depends(get_db)) -> dict:
     if user:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail="User with supplied username exists"
+            detail="User with supplied email exists"
         )
 
     if len(request.password) < 8:

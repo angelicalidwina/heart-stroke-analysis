@@ -17,7 +17,7 @@ Base = declarative_base()
 class Settings(BaseSettings):
     DATABASE_URL: Optional[str] = None
     SECRET_KEY: Optional[str] = "default"
-    ALGORTIM: Optional[str] = "HS256"
+    ALGORTIHM: Optional[str] = "HS256"
 
     class Config:
         env_file = ".env"
