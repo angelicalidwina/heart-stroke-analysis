@@ -4,6 +4,7 @@ import uvicorn
 from models import userModels, predictionModels
 from routes.userRoutes import user_router
 from routes.predictionRoutes import prediction_router
+import requests
 
 app = FastAPI()
 
