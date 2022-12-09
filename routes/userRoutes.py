@@ -67,8 +67,7 @@ def sign_user_in(request: OAuth2PasswordRequestForm = Depends(), db: Session = D
 
 @user_router.get('/users', response_model=list[Pengguna])
 def get_all_user(db :  Session = Depends(get_db), user: str = Depends(authenticate)):
-    admin = db.query(User.email).filter_by(email = 'admin@gmail.com')
-    if not admin:
+    if user != 'admin@gmail.com':
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Forbidden")
     
     return db.query(User).all()

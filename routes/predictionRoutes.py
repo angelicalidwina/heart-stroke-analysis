@@ -24,7 +24,7 @@ def input_data(request:InputData, db: Session = Depends(get_db), user: str = Dep
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Data sudah ada. Silahkan lakukan update")
 
     user_age = request.age
-    user_height = request.height
+    user_height = request.height_meter
     user_weight = request.weight
     user_bmi = round(user_weight/(user_height * user_height), 2)
     if user_bmi < 18.5:
@@ -151,7 +151,7 @@ def update_data(request:InputData, db: Session = Depends(get_db), user: str = De
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Data not found")
     
     user_age = request.age
-    user_height = request.height
+    user_height = request.height_meter
     user_weight = request.weight
     user_bmi = round(user_weight/(user_height * user_height), 2)
     if user_bmi < 18.5:

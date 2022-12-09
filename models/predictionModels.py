@@ -29,7 +29,7 @@ class Prediction(Base):
 
 class InputData(BaseModel):
     age : int
-    height : float
+    height_meter: float
     weight : float
     glucose: int
     cholesterol: int
@@ -39,7 +39,7 @@ class InputData(BaseModel):
         schema_extra = {
             "example": {
                 "age" : 20,
-                "height": 1.5,
+                "height_meter": 1.5,
                 "weight": 45.0,
                 "glucose": 120,
                 "cholesterol": 100
