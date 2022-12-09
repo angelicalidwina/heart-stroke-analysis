@@ -103,14 +103,33 @@ def get_prediction(db: Session = Depends(get_db), user: str = Depends(authentica
 @prediction_router.get('/recommendation')
 def get_recommendation(db: Session = Depends(get_db), user : str = Depends(authenticate)) -> dict:
     prediksi = db.query(Prediction.chance).filter(Prediction.email == user).scalar()
+    glucose = db.query(Prediction.glucose).filter(Prediction.email == user).scalar()
+    cholesterol = db.query(Prediction.cholesterol).filter(Prediction.email == user).scalar()
     
     if not prediksi:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Data not found")
     
     if prediksi == 'Low':
-        return{"Message" : "Overall, your health is good, but don't forget to exercise!!"}
+        if glucose < 150 and cholesterol <200:
+            return{"Message" : "Overall, your health is good, but don't forget to exercise!!"}
+        if glucose >= 150 and cholesterol <200:
+            return{'Message': 'Overall, your health is good but your glucose level is high. Therefore you have to pay attention to carbohydrate intake, consume foods high in fiber, exercise regularly, and reduce sweet foods'}
+        if glucose <150 and cholesterol >=200:
+            return{'Message': 'Overall, your health is good but your cholesterol level is high. Therefore, exercise regularly, avoid foods that trigger hypertension and cholesterol and reduce your intake of salt, saturated fat and trans fat.'}
+    if prediksi == 'Possible':
+        if glucose >= 150 and cholesterol >=200:
+            return{"Message" : "You have a chance of having a heart attack. Your glucose and cholesterol levels are high. You have to pay attention to your food intake and get lots of exercise"}
+        if glucose >= 150 and cholesterol <200:
+            return{'Message': 'You have a chance of having a heart attack and your glucose levels are high. Therefore you have to pay attention to carbohydrate intake, consume foods high in fiber, exercise regularly, and reduce sweet foods'}
+        if glucose <150 and cholesterol >=200:
+            return {'Message' : 'You have a chance of having a heart attack and your cholesterol level is high. Therefore, exercise regularly, avoid foods that trigger hypertension and cholesterol and reduce your intake of salt, saturated fat and trans fat.'}
     if prediksi == 'High':
-        return{"Message": "You have a high chance of having a heart attack. You need to pay attention to your diet and exercise!"}
+        if glucose >= 150 and cholesterol >=200:
+            return{"Message" : "You have a high chance of having a heart attack. Your glucose and cholesterol levels are high. You have to pay attention to your food intake and get lots of exercise"}
+        if glucose >= 150 and cholesterol <200:
+            return{'Message': 'You have a high chance of having a heart attack and your glucose levels are high. Therefore you have to pay attention to carbohydrate intake, consume foods high in fiber, exercise regularly, and reduce sweet foods'}
+        if glucose <150 and cholesterol >=200:
+            return {'Message' : 'You have a high chance of having a heart attack and your cholesterol level is high. Therefore, exercise regularly, avoid foods that trigger hypertension and cholesterol and reduce your intake of salt, saturated fat and trans fat.'}
 
 @prediction_router.delete('/delete')
 def delete_data(db: Session = Depends(get_db), user : str = Depends(authenticate)) -> dict:
